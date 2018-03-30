@@ -1,10 +1,13 @@
 package uk.wardell.tony.interviewsort;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.Comparator.*;
 import static java.util.stream.Collectors.*;
+
+/**
+ * Examples of different ways of sorting an array of numbers in to most to least frequent.
+ */
 
 public class NumberListSort {
 
@@ -15,7 +18,7 @@ public class NumberListSort {
 
         List<Integer> numbers = Arrays.stream(testNumbers).boxed().collect(toList());
 
-        List<NumberFrequency> result = numberListSort.sortB(numbers);
+        List<NumberFrequency> result = numberListSort.sortC(numbers);
         result.stream().forEach(entry -> System.out.println(entry));
     }
 
@@ -42,6 +45,18 @@ public class NumberListSort {
 
         numberFrequencies.sort(comparingLong(NumberFrequency::getFrequency).reversed());
         return numberFrequencies;
+    }
+
+    public List<NumberFrequency> sortC(List<Integer> args) {
+        Map<Integer, Long> frequencyResult = args.stream()
+                .collect(groupingBy(v -> v, counting()));
+
+        List<NumberFrequency> mostFrequentFirst = frequencyResult.entrySet()
+                .stream()
+                .map(e -> new NumberFrequency(e.getKey(), e.getValue()))
+                .sorted(comparingLong(NumberFrequency::getFrequency).reversed())
+                .collect( toList());
+        return mostFrequentFirst;
     }
 
     static class NumberFrequency {
