@@ -11,10 +11,10 @@ public class QuickSort {
         Comparator<String> comparator = Comparator.naturalOrder();
         QuickSort quickSort = new QuickSort();
         List<String> output = quickSort.sort(input, comparator);
-        Stream.of(output).forEach(e -> System.out.println(e));
+        Stream.of(output).forEach(System.out::println);
     }
 
-    public List<String> sort(List<String> input, Comparator<String> comparator){
+    List<String> sort(List<String> input, Comparator<String> comparator){
         Objects.requireNonNull(input);
         if(input.size() <= 1){
             return input;
@@ -40,10 +40,10 @@ public class QuickSort {
         return result;
     }
 
-    static Random rgen = new Random();
+    private static Random rgen = new Random();
 
     // produce a random number in the left to right range
-    static int positionBetweenLeftAndRight(List<String> input){
+    private static int positionBetweenLeftAndRight(List<String> input){
         return Math.abs(rgen.nextInt()) % (input.size());
     }
 }
