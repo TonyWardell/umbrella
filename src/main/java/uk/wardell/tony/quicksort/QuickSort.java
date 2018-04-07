@@ -37,7 +37,8 @@ public class QuickSort {
         var result = new ArrayList<String>();
         result.addAll(sortedLower);
         result.addAll(sortedUpper);
-        return result;
+
+        return Collections.unmodifiableList(result);
     }
 
     private static Random rgen = new Random();
