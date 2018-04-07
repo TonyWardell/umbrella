@@ -34,7 +34,7 @@ public class NumberListSort {
         return mostFrequentFirst;
     }
 
-    public List<NumberFrequency> sortB(List<Integer> args) {
+    List<NumberFrequency> sortB(List<Integer> args) {
         Map<Integer, Long> frequencyResult = args.stream()
                 .collect(groupingBy(v -> v, counting()));
 
@@ -47,16 +47,15 @@ public class NumberListSort {
         return numberFrequencies;
     }
 
-    public List<NumberFrequency> sortC(List<Integer> args) {
+    private List<NumberFrequency> sortC(List<Integer> args) {
         Map<Integer, Long> frequencyResult = args.stream()
                 .collect(groupingBy(v -> v, counting()));
 
-        List<NumberFrequency> mostFrequentFirst = frequencyResult.entrySet()
+        return frequencyResult.entrySet()
                 .stream()
                 .map(e -> new NumberFrequency(e.getKey(), e.getValue()))
                 .sorted(comparingLong(NumberFrequency::getFrequency).reversed())
                 .collect( toList());
-        return mostFrequentFirst;
     }
 
     static class NumberFrequency {
@@ -66,10 +65,6 @@ public class NumberListSort {
         public NumberFrequency(Integer number, long frequency) {
             this.number = number;
             this.frequency = frequency;
-        }
-
-        public Integer getNumber() {
-            return number;
         }
 
         public long getFrequency() {
